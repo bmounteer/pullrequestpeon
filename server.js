@@ -326,7 +326,7 @@ async function processLabeled (body, res) {
 async function updateOrPostMessage (body, res) {
     const pull_request = get(body, 'pull_request');
     const branch = get(body, 'pull_request.head.ref');
-    const reviewers = get(body, 'pull_request.requested_reviewers').map(function (reviewer) {
+    const reviewers = get(body, 'pull_request.requested_reviewers').map(async function (reviewer) {
         const reviewerHandle = await getSlackHandle(reviewer && reviewer.login);
         return reviewerHandle ? '@' + reviewerHandle : reviewer && reviewer.login
     }).join(', ');
